@@ -31,3 +31,5 @@ app.get('/', function (req, res) {
 app.get('/api/', function (req, res) {
   res.send({});
 });
+
+//http://wwww.herder.com/updatedatabase
