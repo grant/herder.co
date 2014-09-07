@@ -15,6 +15,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 
+// Connect to db
+var db = require('./api/db');
+db.connect();
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

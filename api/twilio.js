@@ -1,5 +1,5 @@
-var accountSid = 'AC32a3c49700934481addd5ce1659f04d2';
-var authToken = "";
+var accountSid = 'AC8b1c9bf970c71033309d1ee72b9cc982';
+var authToken = '';
 var client = require('twilio')(accountSid, authToken);
  
 client.messages.create({
