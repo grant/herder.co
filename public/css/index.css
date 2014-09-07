@@ -4,6 +4,20 @@
   font-weight: 100;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  height: 100%;
+}
+
+.mapArea {
+  height: calc(100% - 300px);
+}
+
 .mapArea .header {
   background-color: blue;
   color: white;
@@ -11,4 +25,33 @@
   height: 50px;
   text-align: center;
   padding: 5px;
+}
+
+.dataArea {
+  height: 300px;
+}
+
+.dataArea .graphsArea {
+  height: 100%;
+}
+
+.graphArea {
+  position: relative;
+  height: 50%;
+  padding: 10px;
+}
+
+.graphArea .title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+}
+
+.graph {
+  height: 100%;
+}
+
+.graph .canvas {
+  width: 100%;
 }
