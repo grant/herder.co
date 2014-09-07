@@ -88,7 +88,11 @@ $(function () {
         if (min < 10) {
           min = '0' + min;
         }
-        demoDataWeightLabels.push(date.getHours() + ':' + min);
+        if (i % 3 == 0) {
+          demoDataWeightLabels.push(date.getHours() + ':' + min);
+        } else {
+          demoDataWeightLabels.push('');
+        }
         demoDataWeightValues.push(demoDataWait[i].wait);
       }
       demoDataWeightLabels = demoDataWeightLabels.reverse();
