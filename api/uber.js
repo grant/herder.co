@@ -3,10 +3,11 @@ var https = require('https');
 var token = 'tn7qaSt4y_-gY39_pICe7q0Fyk7sqfkgxEAK-oLP';
 
 var formatURI = function (baseURI, parameters) {
+  var optionsArray = [];
   for (var key in parameters) {
-    parametersArray.push(key + '=' + value);
+    optionsArray.push(key + '=' + parameters[key]);
   }
-  var parametersString = parameters.join('&');
+  var parametersString = optionsArray.join('&');
   return baseURI + '?' + parametersString;
 };
 
@@ -56,6 +57,6 @@ var getTime = function (latitude, longitude, callback) {
   get(timeURI, callback);
 };
 
-module.export.getProducts = getProducts;
-module.export.getPrice = getPrice;
-module.export.getTime = getTime;
+module.exports.getProducts = getProducts;
+module.exports.getPrice = getPrice;
+module.exports.getTime = getTime;
