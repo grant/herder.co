@@ -139,7 +139,7 @@ $(function () {
     var lat = center.lat();
     var lng = center.lng();
     updateData(lat, lng);
-  }, 10000);
+  }, 15000);
 
   function getZip (lat, lng, cb) {
     var point = new google.maps.LatLng(lat, lng);
