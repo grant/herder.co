@@ -73,6 +73,7 @@ ul {
 
 .graphArea .title {
   position: absolute;
+  color: rgb(245, 245, 245);
   top: 10px;
   left: 10px;
   margin: 0;

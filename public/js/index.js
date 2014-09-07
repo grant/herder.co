@@ -1,4 +1,5 @@
 $(function () {
+
   var $priceChart = $('#price');
   var priceChartCtx = $priceChart.get(0).getContext('2d');
   var $waitChart = $('#wait');
@@ -23,9 +24,9 @@ $(function () {
       },
       {
         label: "My Second dataset",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
+        fillColor: "rgba(222, 234, 255, 0.2)",
+        strokeColor: "rgba(222, 234, 255, 1)",
+        pointColor: "rgba(222, 234, 255, 1)",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(151,187,205,1)",
@@ -33,7 +34,11 @@ $(function () {
       }
     ]
   };
-  var priceChart = new Chart(priceChartCtx).Line(data);
+  var priceChart = new Chart(priceChartCtx).Line(data, {
+    scaleGridLineColor : "rgba(255, 255, 255,.07)",
+    scaleLineColor: "rgba(255, 255, 255, .1)",
+    scaleFontColor: "rgba(255, 255, 255, 0.6",
+  });
   // var waitChart = new Chart(waitChartCtx);
 
   // map center
@@ -66,16 +71,16 @@ $(function () {
   });
 
   // Try HTML5 geolocation
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       
-      map.setCenter(pos);
-    }, function() {
-    });
-  } else {
-    // Browser doesn't support Geolocation
-  }
+  //     map.setCenter(pos);
+  //   }, function() {
+  //   });
+  // } else {
+  //   // Browser doesn't support Geolocation
+  // }
 
   // $.get('/api/', function (data) {
     
