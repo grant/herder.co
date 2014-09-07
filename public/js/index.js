@@ -6,6 +6,8 @@ $(function () {
 
   priceChartCtx.canvas.width = $priceChart.width();
   waitChartCtx.canvas.width = $waitChart.width();
+  priceChartCtx.canvas.height = $priceChart.height();
+  waitChartCtx.canvas.height = $waitChart.height();
   var data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [

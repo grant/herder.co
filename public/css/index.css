@@ -15,20 +15,20 @@ ul {
 }
 
 .mapArea {
-  height: calc(100% - 300px);
+  height: calc(100% - 200px);
 }
 
 .mapArea .header {
-  background-color: blue;
+  background-color: rgba(234, 32, 76, 0.2);
   color: white;
-  font-size: 25px;
-  height: 50px;
+  font-size: 20px;
+  height: 30px;
   text-align: center;
-  padding: 5px;
+  padding: 2px;
 }
 
 .dataArea {
-  height: 300px;
+  height: 200px;
 }
 
 .dataArea .graphsArea {
