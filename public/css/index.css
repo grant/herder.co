@@ -1,6 +1,14 @@
 * {
+  box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-weight: 100;
-  font-size: 100px;
-  background-color: red;
+}
+
+.mapArea .header {
+  background-color: blue;
+  color: white;
+  font-size: 25px;
+  height: 50px;
+  text-align: center;
+  padding: 5px;
 }
