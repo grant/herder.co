@@ -3,6 +3,8 @@ herder.co
 
 Maximize your profit as an Uber driver.
 
+[Challengepost](http://disruptsfhackathon.challengepost.com/submissions/26475-herder?utm_campaign=techcrunch-disrupt-sf-hackathon_20140724&utm_content=submission_visible_in_gallery&utm_medium=email&utm_source=transactional)
+
 ## Setup
 ```sh
 git clone git@github.com:grant/herder.co.git
