@@ -7,7 +7,7 @@ Maximize your profit as an Uber driver.
 ```sh
 git clone git@github.com:grant/herder.co.git
 npm install
-npm start
+foreman start
 ```
 
 ## Tests
