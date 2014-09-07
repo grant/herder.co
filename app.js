@@ -6,7 +6,7 @@ var http = require('http');
 var jade = require('jade');
 
 var express = require('express');
-// var uber = require('./api/uber');
+var uber = require('./api/uber');
 var app = express();
 
 // all environments
@@ -32,4 +32,6 @@ app.get('/api/', function (req, res) {
   res.send({});
 });
 
-//http://wwww.herder.com/updatedatabase
+app.get('/updatedatabase', function (req, res) {
+  // uber.
+});
