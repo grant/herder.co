@@ -21,12 +21,13 @@ ul {
 .mapArea .header {
   position: absolute;
   width: 100%;
-  background-color: rgba(234, 32, 76, 0.2);
+  background-color: rgba(234, 32, 76, 0.9);
   color: white;
   font-size: 20px;
   height: 30px;
   text-align: center;
   padding: 2px;
+  z-index: 1000;
 }
 
 .mapArea .map {

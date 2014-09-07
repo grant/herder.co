@@ -40,7 +40,7 @@ $(function () {
   var myLatlng = new google.maps.LatLng(25.6586, -80.3568);
   // map options,
   var myOptions = {
-    zoom: 3,
+    zoom: 5,
     center: myLatlng,
     disableDefaultUI: true
   };
