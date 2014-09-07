@@ -3,36 +3,65 @@ var Geo = require('../model/geo');
 
 var dayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-var formattedDayArray = function () {
-    var today = new Date();
-    var currentDay = today.getDay();
-    return dayArray.splice(currentDay + 1) + dayArray(0, currentDay)
+var getFormattedDayArray = function () {
+  var today = new Date();
+  var currentDay = today.getDay();
+  return dayArray.splice(currentDay + 1) + dayArray(0, currentDay);
 };
 
 var locations = require('../data/locations');
 
+// Adds a geolocation callback to the array for a cetain lat and lng
+function addGeoCallback (lat, lng, geoCallbackArray) {
+  geoCallbackArray.push(function (callback) {
+    Geo.find({
+      lat: lat,
+      lng: lng
+    }).sort(['_id', -1]).exec(function (err, data) {
+      var priceData = data[0].time.priceData;
+      var timeData = data[0].time.timeData;
+      var formattedData = {
+        lat: lat,
+        lng: lng,
+        price: priceData,
+        wait: timeData
+      };
+      callback(null, formattedData);
+    });
+  });
+}
+
+// Gets the data needed to render the map
 var getMapData = function (callback) {
   var locationsObject = {};
-  var currentDate = new Date();
+  var geoCallbackArray = [];
   for (var locationDataIndex in locations) {
     var locationData = locations[locationDataIndex];
     var lat = locationData[0];
     var lng = locationData[1];
-    var data = Geo.find({lat: lat, lng: lng, "created_on": {"$gte": currentDate}}).sort([['_id', -1]]), function (err, data) {
-      var priceData = data[0]['time']['priceData'];
-      var timeData = data[0]['time']['timeData'];
-      }
-    locationsObject[locationDataIndex] = {latitude: lat, longituge: lng, price: priceData, wait: timeData}
+    addGeoCallback(lat, lng, geoCallbackArray);
   }
-}
+  // execute query
+  async.parallel(geoCallbackArray, function (err, data) {
+    callback(data);
+  });
+};
 
+// Gets the data needed to render the daily maximums for the line charts
 var getDailyMaximums = function (latitude, longitude, callback) {
   var oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  var data = Geo.find({lat: latitude, lng: longitude, "created_on": {"$gt": oneWeekAgo}}), function (err, data) {
+  Geo.find({
+    lat: latitude,
+    lng: longitude,
+    created_on: {
+      "$gt": oneWeekAgo
+    }
+  }, function (err, data) {
+    console.log(data);
     var dailyMaximumsObject = {};
+    var formattedDayArray = getFormattedDayArray();
     for (var day in formattedDayArray) {
-      var currentDate = oneWeekAgo.getDate();
       var dailySurgeMax = 0;
       var dailyTimeMax = 0;
       dailyMaximumsObject[formattedDayArray[day]] = function () {
@@ -43,28 +72,30 @@ var getDailyMaximums = function (latitude, longitude, callback) {
           if (data[element]['time']['timeData'] > dailyTimeMax) {
             dailySurgeMax = data[element]['time']['timeData'];
           }
-        };
+        }
         return [dailySurgeMax, dailyTimeMax];
       };
       oneWeekAgo.setDate(oneWeekAgo.getDate + 1);
-    };
-    callback()
-  };
+    }
+    callback();
+  });
 };
 
+// Gets the data needed to render the hourly maximums for the line charts
 var getHourlyMaximums = function (latitude, longitude, callback) {
   var yesterdayDate = new Date();
   var tempTime = new Date();
   yesterday.setDate(yesterday.getDate() - 7);
   var dailyMaxObject = {};
-  var data = Geo.find({lat: lat, lng: lng, "created_on": {"$gte": yesterdayDate}}).sort([['_id', -1]]), function (err, data) {
-  for (element in data) {
-    var surge = data[element]['time']['priceData'];
-    var wait = data[element]['time']['timeData'];
-    dailyMaxObject[tempTime] = [surge, wait]
-    tempTime.setMinutes(tempTime.getMinutes() - 15)
-  }
-  callback
+  Geo.find({lat: lat, lng: lng, "created_on": {"$gte": yesterdayDate}}).sort([['_id', -1]]), function (err, data) {
+    for (var element in data) {
+      var surge = data[element]['time']['priceData'];
+      var wait = data[element]['time']['timeData'];
+      dailyMaxObject[tempTime] = [surge, wait];
+      tempTime.setMinutes(tempTime.getMinutes() - 15);
+    }
+    callback();
+  });
 };
 
 module.exports.getMapData = gatMapData;
