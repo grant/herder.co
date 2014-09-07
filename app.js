@@ -81,3 +81,15 @@ app.get('/updatedatabase', function (req, res) {
     res.send('all done');
   });
 });
+
+app.get('/sms', function (req, res) {
+  var sampleLat = '37.7785951';
+  var sampleLng = '-122.38926979999997';
+  var driverContact = '6465049375';
+  var fakeSurge = 1.75;
+  var fakeWait = 10;
+  var expectedTrend = 'The due to wait time trending, surge will likely increase.';
+  twilio.sendMessage(driverContact, surge, wait, expectedTrend, function (result) {
+    console.log(result)
+  })
+})
