@@ -10,6 +10,11 @@ npm install
 npm start
 ```
 
+## Tests
+```sh
+node tests/testGetProducts.js
+```
+
 ## Notes
 - uber analytics
 - which hours to work
