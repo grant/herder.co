@@ -24,10 +24,12 @@ ul {
   background-color: rgba(234, 32, 76, 0.9);
   color: white;
   font-size: 20px;
+  font-weight: 400;
   height: 30px;
   text-align: center;
   padding: 2px;
   z-index: 1000;
+  box-shadow: 2px 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .mapArea .map {
