@@ -44,6 +44,12 @@ var getProducts = function (latitude, longitude, callback) {
 
 var getPrice = function (latitude, longitude, destLatitude, destLongitude, callback) {
   var priceRequestBase = '/v1/estimates/price';
+  if (!destLatitude) {
+    destLatitude = latitude;
+  }
+  if (!destLongitude) {
+    destLongitude = longitude;
+  }
   var parameters = {start_latitude: latitude, start_longitude: longitude,
     end_latitude: destLatitude, end_longitude: destLongitude};
   var priceURI = formatURI(priceRequestBase, parameters);
