@@ -31,23 +31,23 @@ var getDailyMaximums = function (latitude, longitude, callback) {
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   var data = Geo.find({lat: latitude, lng: longitude, "created_on": {"$gt": oneWeekAgo}}), function (err, data) {
     var dailyMaximumsObject = {};
-    for (day in formattedDayArray) {
+    for (var day in formattedDayArray) {
       var currentDate = oneWeekAgo.getDate();
       var dailySurgeMax = 0;
       var dailyTimeMax = 0;
       dailyMaximumsObject[formattedDayArray[day]] = function () {
-        for (element in data) {
+        for (var element in data) {
           if (data[element]['time']['priceData'] > dailySurgeMax) {
             dailySurgeMax = data[element]['time']['priceData'];
           }
           if (data[element]['time']['timeData'] > dailyTimeMax) {
             dailySurgeMax = data[element]['time']['timeData'];
           }
-        }
+        };
         return [dailySurgeMax, dailyTimeMax];
       };
       oneWeekAgo.setDate(oneWeekAgo.getDate + 1);
-    }
+    };
     callback()
   };
 };
