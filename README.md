@@ -13,6 +13,8 @@ npm start
 ## Tests
 ```sh
 node tests/testGetProducts.js
+node tests/testGetPrice.js
+node tests/testGetTime.js
 ```
 
 ## Notes
