@@ -6,6 +6,7 @@ block css
   link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css')
 block js
   script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+  script(src='js/dateFormat.js')
   script(src='js/chart.min.js')
   script(src='https://maps.googleapis.com/maps/api/js?sensor=false')
   script(src='js/gmaps.heatmap.js')
@@ -21,10 +22,8 @@ block content
     .dataArea
       ul.graphsArea
         li.graphArea
-          h3.title Price Surge
+          h3.title
+            i(style="color:rgb(156, 12, 12);") Wait time (sec)
+            i(style="margin-left:20px") Surge price
           .graph
             canvas.canvas#price
-        li.graphArea
-          h3.title Average wait
-          .graph
-            canvas.canvas#wait
