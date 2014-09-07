@@ -31,11 +31,25 @@ app.get('/', function (req, res) {
 });
 
 // API
-app.get('/api', function (req, res) {
-  // retrieve.getDailyMaximums("37.615223", "-122.389979", function (data) {
-  //   console.log(data);
-  // });
-  retrieve.getHourlyMaximums("37.615223", "-122.389979", function (hourData) {
+app.get('/api/:lat/:lng', function (req, res) {
+  var lat = req.param('lat');
+  var lng = req.param('lng');
+  // get closest lat lng
+  var locations = require('./data/locations');
+  var minLatLng;
+  var minDist = 10000;
+  for (var i in locations) {
+    var loc = locations[i];
+    var nextLat = loc[0];
+    var nextLng = loc[1];
+    var dis = Math.sqrt(Math.pow(lat - nextLat, 2) + Math.pow(lng, nextLng, 2));
+    if (dis < minDist) {
+      minDist = dis;
+      minLatLng = {lat: nextLat, lng: nextLng};
+    }
+  }
+
+  retrieve.getHourlyMaximums(minLatLng.lat, minLatLng.lng, function (hourData) {
     retrieve.getMapData(function (mapData) {
       res.send({
         hour: hourData,
