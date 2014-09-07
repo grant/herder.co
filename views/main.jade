@@ -1,7 +1,17 @@
 block css
+  link(rel="stylesheet" href='css/normalize.css')
   link(rel="stylesheet" href='css/index.css')
+  link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css')
 block js
 
 block content
   .content
-    | hi
+    .mapArea
+      header.header
+        | Herder
+      .map
+    .dataArea
+      ul.graphsArea
+        li.graphArea
+          h3.title Price Surge
+          .graph
