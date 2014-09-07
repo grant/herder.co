@@ -39,7 +39,7 @@ $(function () {
   function updateData (lat, lng) {
     $('canvas').fadeOut();
     priceChartCtx.canvas.width = $('.graphArea').width();
-    priceChartCtx.canvas.height = 200;
+    priceChartCtx.canvas.height = 180;
     $.get('/api/' + lat + '/' + lng, function (data) {
       $('canvas').html('');
       $('canvas').fadeIn();

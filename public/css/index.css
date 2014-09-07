@@ -6,6 +6,7 @@
 
 html, body {
   height: 100%;
+  overflow: hidden;
 }
 
 ul {
@@ -74,8 +75,9 @@ ul {
 .graphArea .title {
   position: absolute;
   color: rgb(245, 245, 245);
+  font-size: 14px;
   top: 10px;
-  left: 50px;
+  left: 60px;
   margin: 0;
 }
 
