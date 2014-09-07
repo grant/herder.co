@@ -3,16 +3,17 @@ var authToken = process.env.TWILIO_AUTH_TOKEN;
 var client = require('twilio')(accountSid, authToken);
 
 var sendMessage = function (driverContact, surge, wait, expectedTrend, callback) {
-  var smsBody = "surge: " + surge + '\n' + "wait: " + wait + '\n'
-  smsBody = smsBody + expectedTrend
-  client.messages.create({
+  var smsBody = "surge: " + surge + '\n' + "wait: " + wait + '\n';
+  smsBody = smsBody + expectedTrend;
+  var details = {
     body: smsBody,
     to: driverContact,
-    from: driverContact
-  }, function(err, message) {
-    process.stdout.write(message.sid);
+    from: '+16506469710'
+  };
+  console.log(details);
+  client.messages.create(details, function(err, message) {
+    callback(message);
   });
-
-}
+};
 
 module.exports.sendMessage = sendMessage;

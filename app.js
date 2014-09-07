@@ -8,6 +8,7 @@ var async = require('async');
 
 var retrieve = require('./api/retrieve');
 var processData = require('./api/processData');
+var twilio = require('./api/twilio');
 
 var express = require('express');
 var app = express();
@@ -31,6 +32,13 @@ app.get('/', function (req, res) {
 });
 
 // API
+app.get('/api/gas/:zip', function (req, res) {
+  var zip = req.param('zip');
+  require('./api/gas')(zip, function (data) {
+    res.send(data);
+  });
+});
+
 app.get('/api/:lat/:lng', function (req, res) {
   var lat = req.param('lat');
   var lng = req.param('lng');
@@ -85,11 +93,12 @@ app.get('/updatedatabase', function (req, res) {
 app.get('/sms', function (req, res) {
   var sampleLat = '37.7785951';
   var sampleLng = '-122.38926979999997';
-  var driverContact = '6465049375';
+  var driverContact = '+1123123123';
   var fakeSurge = 1.75;
   var fakeWait = 10;
   var expectedTrend = 'The due to wait time trending, surge will likely increase.';
-  twilio.sendMessage(driverContact, surge, wait, expectedTrend, function (result) {
-    console.log(result)
-  })
-})
+  twilio.sendMessage(driverContact, fakeSurge, fakeWait, expectedTrend, function (result) {
+    console.log(result);
+    res.send('good');
+  });
+});
