@@ -77,6 +77,10 @@ $(function () {
     // Browser doesn't support Geolocation
   }
 
+  // $.get('/api/', function (data) {
+    
+  // });
+
   // Add heatmap data
   var testData = {
     max: 8,
