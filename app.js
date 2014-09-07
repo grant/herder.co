@@ -34,4 +34,13 @@ app.get('/api/', function (req, res) {
 
 app.get('/updatedatabase', function (req, res) {
   // uber.
+  // var store = require('./api/store');
+  // store.storeGeo({
+  //   lat: 1,
+  //   lng: 2,
+  //   time: {
+  //     priceData: {data:1},
+  //     timeData: {data:2}
+  //   }
+  // });
 });

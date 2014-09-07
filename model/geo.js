@@ -11,16 +11,13 @@
 var mongoose = require('mongoose');
 
 // Times
-var timeMomentSchema = new mongoose.Schema({
-  priceData: Object,
-  timeData: Object
-});
-var TimeMoment = mongoose.model('TimeMoment', timeMomentSchema);
-
 var geoSchema = new mongoose.Schema({
   lat: Number,
   lng: Number,
-  time: TimeMoment
+  time: {
+    priceData: Object,
+    timeData: Object
+  }
 });
 var Geo = mongoose.model('Geo', geoSchema);
 module.exports = Geo;
