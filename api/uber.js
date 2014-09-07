@@ -55,3 +55,7 @@ var getTime = function (latitude, longitude, callback) {
   var timeURI = formatURI(timeRequestBase, parameters);
   get(timeURI, callback);
 };
+
+module.export.getProducts = getProducts;
+module.export.getPrice = getPrice;
+module.export.getTime = getTime;
