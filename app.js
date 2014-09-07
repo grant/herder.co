@@ -5,8 +5,9 @@
 var http = require('http');
 var jade = require('jade');
 
+var processData = require('./api/processData');
+
 var express = require('express');
-var uber = require('./api/uber');
 var app = express();
 
 // all environments
@@ -33,14 +34,13 @@ app.get('/api/', function (req, res) {
 });
 
 app.get('/updatedatabase', function (req, res) {
-  // uber.
-  // var store = require('./api/store');
-  // store.storeGeo({
-  //   lat: 1,
-  //   lng: 2,
-  //   time: {
-  //     priceData: {data:1},
-  //     timeData: {data:2}
-  //   }
-  // });
+  var locations = require('./data/locations');
+  for (var locationDataIndex in locations) {
+    var locationData = locations[locationDataIndex];
+    var lat = locationData[0];
+    var lng = locationData[1];
+    processData.saveLatLngPoint(lat, lng, function () {
+      res.send('done');
+    });
+  }
 });
