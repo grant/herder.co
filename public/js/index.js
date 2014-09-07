@@ -70,21 +70,21 @@ $(function () {
     valueField: 'count'
   });
 
-  // // Try HTML5 geolocation
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  // Try HTML5 geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       
-  //     map.setCenter(pos);
-  //   }, function() {
-  //   });
-  // } else {
-  //   // Browser doesn't support Geolocation
-  // }
+      map.setCenter(pos);
+    }, function() {
+    });
+  } else {
+    // Browser doesn't support Geolocation
+  }
 
-  // // $.get('/api/', function (data) {
+  // $.get('/api/', function (data) {
     
-  // // });
+  // });
 
   // Add heatmap data
   var testData = {
