@@ -15,6 +15,10 @@ ul {
   padding: 0;
 }
 
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
 .content {
   height: 100%;
 }

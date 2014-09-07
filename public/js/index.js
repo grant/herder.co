@@ -174,7 +174,8 @@ $(function () {
 
           $('.gasArea .price').html('$' + bestStation.RegPrice);
           $('.gasArea .name').html(bestStation.StationName);
-          $('.gasArea .address').html(bestStation.Address);
+          $('.gasArea .address').html(bestStation.Address)
+              .attr('href', 'http://maps.google.com/?q=' + bestStation.Address);
         });
       } else {
         $('.gasArea').hide();
