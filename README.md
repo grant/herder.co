@@ -17,6 +17,14 @@ node tests/testGetPrice.js
 node tests/testGetTime.js
 ```
 
+## Color scheme
+- Red: rgb(254, 85, 85)
+- Dark Red: rgb(216, 72, 72)
+- White: rgb(245, 245, 245)
+- Gray: rgb(238, 238, 238)
+- Dark Gray: rgb(77, 75, 72)
+- Blue: rgb(83, 130, 255)
+
 ## Notes
 - uber analytics
 - which hours to work

@@ -40,7 +40,6 @@ function addToArray (lat, lng, savePointArray) {
       callback();
     });
   });
-  return savePointArray;
 }
 
 app.get('/updatedatabase', function (req, res) {
