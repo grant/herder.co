@@ -1,5 +1,7 @@
 var accountSid = 'AC8b1c9bf970c71033309d1ee72b9cc982';
 var authToken = process.env.TWILIO_AUTH_TOKEN;
+console.log(accountSid);
+console.log(authToken);
 var client = require('twilio')(accountSid, authToken);
 
 var sendMessage = function (driverContact, surge, wait, expectedTrend, callback) {
@@ -7,7 +9,7 @@ var sendMessage = function (driverContact, surge, wait, expectedTrend, callback)
   smsBody = smsBody + expectedTrend;
   var details = {
     body: smsBody,
-    to: driverContact,
+    to: process.env.GRANT_PHONE,
     from: '+16506469710'
   };
   client.messages.create(details, function(err, message) {
