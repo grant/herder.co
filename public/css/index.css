@@ -58,7 +58,7 @@ ul {
 }
 
 .dataArea {
-  height: 200px;
+  height: 250px;
 }
 
 .dataArea .graphsArea {
@@ -75,7 +75,7 @@ ul {
   position: absolute;
   color: rgb(245, 245, 245);
   top: 10px;
-  left: 10px;
+  left: 50px;
   margin: 0;
 }
 

@@ -37,12 +37,12 @@ app.get('/api/:lat/:lng', function (req, res) {
   // get closest lat lng
   var locations = require('./data/locations');
   var minLatLng;
-  var minDist = 10000;
+  var minDist = 1000000;
   for (var i in locations) {
     var loc = locations[i];
     var nextLat = loc[0];
     var nextLng = loc[1];
-    var dis = Math.sqrt(Math.pow(lat - nextLat, 2) + Math.pow(lng, nextLng, 2));
+    var dis = Math.sqrt(Math.pow(lat - nextLat, 2) + Math.pow(lng - nextLng, 2));
     if (dis < minDist) {
       minDist = dis;
       minLatLng = {lat: nextLat, lng: nextLng};

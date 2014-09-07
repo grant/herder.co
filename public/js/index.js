@@ -2,13 +2,9 @@ $(function () {
 
   var $priceChart = $('#price');
   var priceChartCtx = $priceChart.get(0).getContext('2d');
-  var $waitChart = $('#wait');
-  var waitChartCtx = $waitChart.get(0).getContext('2d');
 
-  priceChartCtx.canvas.width = $priceChart.width();
-  waitChartCtx.canvas.width = $waitChart.width();
-  priceChartCtx.canvas.height = $priceChart.height();
-  waitChartCtx.canvas.height = $waitChart.height();
+  priceChartCtx.canvas.width = $('.graphArea').width();
+  // priceChartCtx.canvas.height = $('.graphArea').height();
 
   // map center
   var myLatlng = new google.maps.LatLng(37.332017799999996, -121.8899544);
@@ -39,6 +35,96 @@ $(function () {
     valueField: 'count'
   });
 
+  var priceChart;
+  function updateData (lat, lng) {
+    $('canvas').fadeOut();
+    priceChartCtx.canvas.width = $('.graphArea').width();
+    priceChartCtx.canvas.height = 200;
+    $.get('/api/' + lat + '/' + lng, function (data) {
+      $('canvas').html('');
+      $('canvas').fadeIn();
+      var map = data.map;
+      var heatmapData = [];
+      for (var i in map) {
+        var pt = map[i];
+        var lat = pt.lat;
+        var lng = pt.lng;
+        var surge = pt.price[0].surge_multiplier;
+        heatmapData.push({
+          lat: +lat,
+          lng: +lng,
+          count: surge
+        });
+      }
+      heatmap.setData({
+        min: 0,
+        max: 3,
+        data: heatmapData
+      });
+
+      // charts
+      var hours = data.hour;
+      var demoDataPrice = [];
+      var demoDataWait = [];
+      for (var time in hours) {
+        var date = new Date(time);
+        var price = hours[time][0];
+        demoDataPrice.push({
+          time: time,
+          surge: price[0].surge_multiplier
+        });
+        var wait = hours[time][1];
+        demoDataWait.push({
+          time: time,
+          wait: wait[0].estimate
+        });
+      }
+
+      var demoDataWeightLabels = [];
+      var demoDataWeightValues = [];
+      for (var i in demoDataWait) {
+        var date = new Date(demoDataWait[i].time);
+        var min = date.getMinutes();
+        if (min < 10) {
+          min = '0' + min;
+        }
+        demoDataWeightLabels.push(date.getHours() + ':' + min);
+        demoDataWeightValues.push(demoDataWait[i].wait);
+      }
+      demoDataWeightLabels = demoDataWeightLabels.reverse();
+      demoDataWeightValues = demoDataWeightValues.reverse();
+
+      var chartData = {
+        labels: demoDataWeightLabels,
+        datasets: [
+          {
+            label: "My Second dataset",
+            fillColor: "rgba(222, 234, 255, 0.2)",
+            strokeColor: "rgba(222, 234, 255, 1)",
+            pointColor: "rgba(222, 234, 255, 1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: demoDataWeightValues
+          }
+        ]
+      };
+      priceChart = new Chart(priceChartCtx).Line(chartData, {
+        scaleGridLineColor : "rgba(255, 255, 255,.07)",
+        scaleLineColor: "rgba(255, 255, 255, .1)",
+        scaleFontColor: "rgba(255, 255, 255, 0.6",
+      });
+      // var waitChart = new Chart(waitChartCtx);
+    });
+  }
+
+  setInterval(function () {
+    var center = map.getCenter();
+    var lat = center.lat();
+    var lng = center.lng();
+    updateData(lat, lng);
+  }, 4000);
+
   // Try HTML5 geolocation
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -46,61 +132,7 @@ $(function () {
       
       map.setCenter(pos);
 
-      $.get('/api/' + position.coords.latitude + '/' + position.coords.longitude, function (data) {
-        var map = data.map;
-        var heatmapData = [];
-        for (var i in map) {
-          var pt = map[i];
-          var lat = pt.lat;
-          var lng = pt.lng;
-          var surge = pt.price[0].surge_multiplier;
-          heatmapData.push({
-            lat: +lat,
-            lng: +lng,
-            count: surge
-          });
-        }
-        heatmap.setData({
-          min: 0,
-          max: 3,
-          data: heatmapData
-        });
-
-        // charts
-        var hour = data.hour;
-        
-        var chartData = {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
-          datasets: [
-            {
-              label: "My First dataset",
-              fillColor: "rgba(220,220,220,0.2)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-              label: "My Second dataset",
-              fillColor: "rgba(222, 234, 255, 0.2)",
-              strokeColor: "rgba(222, 234, 255, 1)",
-              pointColor: "rgba(222, 234, 255, 1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              data: [28, 48, 40, 19, 86, 27, 90]
-            }
-          ]
-        };
-        var priceChart = new Chart(priceChartCtx).Line(chartData, {
-          scaleGridLineColor : "rgba(255, 255, 255,.07)",
-          scaleLineColor: "rgba(255, 255, 255, .1)",
-          scaleFontColor: "rgba(255, 255, 255, 0.6",
-        });
-        // var waitChart = new Chart(waitChartCtx);
-      });
+      updateData(position.coords.latitude, position.coords.longitude);
     }, function() {
     });
   } else {
