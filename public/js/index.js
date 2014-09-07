@@ -94,20 +94,32 @@ $(function () {
       demoDataWeightLabels = demoDataWeightLabels.reverse();
       demoDataWeightValues = demoDataWeightValues.reverse();
 
+      var demoDataPriceValues = [];
+      for (var i in demoDataPrice) {
+        demoDataPriceValues.push(demoDataPrice[i].surge * 500);
+      }
+
       var chartData = {
         labels: demoDataWeightLabels,
-        datasets: [
-          {
-            label: "My Second dataset",
-            fillColor: "rgba(222, 234, 255, 0.2)",
-            strokeColor: "rgba(222, 234, 255, 1)",
-            pointColor: "rgba(222, 234, 255, 1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: demoDataWeightValues
-          }
-        ]
+        datasets: [{
+          label: "My first dataset",
+          fillColor: "rgba(222, 23, 25, 0.2)",
+          strokeColor: "rgba(222, 23, 25, 1)",
+          pointColor: "rgba(222, 23, 25, 1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: demoDataPriceValues
+        }, {
+          label: "My Second dataset",
+          fillColor: "rgba(222, 234, 255, 0.2)",
+          strokeColor: "rgba(222, 234, 255, 1)",
+          pointColor: "rgba(222, 234, 255, 1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: demoDataWeightValues
+        }]
       };
       priceChart = new Chart(priceChartCtx).Line(chartData, {
         scaleGridLineColor : "rgba(255, 255, 255,.07)",
@@ -123,7 +135,7 @@ $(function () {
     var lat = center.lat();
     var lng = center.lng();
     updateData(lat, lng);
-  }, 4000);
+  }, 10000);
 
   // Try HTML5 geolocation
   if (navigator.geolocation) {
