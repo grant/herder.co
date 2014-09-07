@@ -6,6 +6,7 @@ var http = require('http');
 var jade = require('jade');
 var async = require('async');
 
+var retrieve = require('./api/retrieve');
 var processData = require('./api/processData');
 
 var express = require('express');
@@ -30,8 +31,18 @@ app.get('/', function (req, res) {
 });
 
 // API
-app.get('/api/', function (req, res) {
-  res.send({});
+app.get('/api', function (req, res) {
+  // retrieve.getDailyMaximums("37.615223", "-122.389979", function (data) {
+  //   console.log(data);
+  // });
+  retrieve.getHourlyMaximums("37.615223", "-122.389979", function (hourData) {
+    retrieve.getMapData(function (mapData) {
+      res.send({
+        hour: hourData,
+        map: mapData
+      });
+    });
+  });
 });
 
 function addToArray (lat, lng, savePointArray) {

@@ -6,7 +6,7 @@ var dayArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'
 var getFormattedDayArray = function () {
   var today = new Date();
   var currentDay = today.getDay();
-  return dayArray.splice(currentDay + 1) + dayArray(0, currentDay);
+  return dayArray.splice(currentDay + 1) + dayArray.splice(0, currentDay);
 };
 
 var locations = require('../data/locations');
@@ -17,7 +17,7 @@ function addGeoCallback (lat, lng, geoCallbackArray) {
     Geo.find({
       lat: lat,
       lng: lng
-    }).sort(['_id', -1]).exec(function (err, data) {
+    }).sort({'_id': -1}).exec(function (err, data) {
       var priceData = data[0].time.priceData;
       var timeData = data[0].time.timeData;
       var formattedData = {
@@ -53,10 +53,10 @@ var getDailyMaximums = function (latitude, longitude, callback) {
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   Geo.find({
     lat: latitude,
-    lng: longitude,
-    created_on: {
-      "$gt": oneWeekAgo
-    }
+    lng: longitude
+    // createdAt: {
+    //   "$gt": oneWeekAgo
+    // }
   }, function (err, data) {
     console.log(data);
     var dailyMaximumsObject = {};
@@ -85,19 +85,25 @@ var getDailyMaximums = function (latitude, longitude, callback) {
 var getHourlyMaximums = function (latitude, longitude, callback) {
   var yesterdayDate = new Date();
   var tempTime = new Date();
-  yesterday.setDate(yesterday.getDate() - 7);
+  yesterdayDate.setDate(yesterdayDate.getDate() - 7);
   var dailyMaxObject = {};
-  Geo.find({lat: lat, lng: lng, "created_on": {"$gte": yesterdayDate}}).sort([['_id', -1]]), function (err, data) {
+  Geo.find({
+    lat: latitude,
+    lng: longitude
+    // "created_on": {
+    //   "$gte": yesterdayDate
+    // }
+  }).sort({'_id': -1}).exec(function (err, data) {
     for (var element in data) {
       var surge = data[element]['time']['priceData'];
       var wait = data[element]['time']['timeData'];
       dailyMaxObject[tempTime] = [surge, wait];
       tempTime.setMinutes(tempTime.getMinutes() - 15);
     }
-    callback();
+    callback(dailyMaxObject);
   });
 };
 
-module.exports.getMapData = gatMapData;
+module.exports.getMapData = getMapData;
 module.exports.getDailyMaximums = getDailyMaximums;
 module.exports.getHourlyMaximums = getHourlyMaximums;
