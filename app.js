@@ -4,6 +4,7 @@
 
 var http = require('http');
 var jade = require('jade');
+var async = require('async');
 
 var processData = require('./api/processData');
 
@@ -33,14 +34,26 @@ app.get('/api/', function (req, res) {
   res.send({});
 });
 
+function addToArray (lat, lng, savePointArray) {
+  savePointArray.push(function (callback) {
+    processData.saveLatLngPoint(lat, lng, function () {
+      callback();
+    });
+  });
+  return savePointArray;
+}
+
 app.get('/updatedatabase', function (req, res) {
   var locations = require('./data/locations');
+  var savePointArray = [];
   for (var locationDataIndex in locations) {
     var locationData = locations[locationDataIndex];
     var lat = locationData[0];
     var lng = locationData[1];
-    processData.saveLatLngPoint(lat, lng, function () {
-      res.send('done');
-    });
+    addToArray(lat, lng, savePointArray);
   }
+  async.series(savePointArray, function () {
+    console.log('all done');
+    res.send('all done');
+  });
 });
