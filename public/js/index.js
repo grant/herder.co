@@ -37,12 +37,12 @@ $(function () {
 
   var priceChart;
   function updateData (lat, lng) {
-    $('canvas').fadeOut();
+    $('canvas.canvas').fadeOut();
     priceChartCtx.canvas.width = $('.graphArea').width();
     priceChartCtx.canvas.height = 180;
     $.get('/api/' + lat + '/' + lng, function (data) {
-      $('canvas').html('');
-      $('canvas').fadeIn();
+      $('canvas.canvas').html('');
+      $('canvas.canvas').fadeIn();
       var map = data.map;
       var heatmapData = [];
       for (var i in map) {
