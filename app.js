@@ -19,5 +19,5 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 app.get('*', function (req, res) {
-  res.send(uber.getSpeed());
+  res.send('hi');
 });
