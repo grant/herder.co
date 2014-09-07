@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/grant/herder.co",
   "dependencies": {
-    "express": "^4.8.8"
+    "express": "^4.8.8",
+    "passport": "^0.2.1",
+    "jade": "^1.6.0"
   }
 }

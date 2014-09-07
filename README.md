@@ -3,6 +3,13 @@ herder.co
 
 Maximize your profit as an Uber driver.
 
+## Setup
+```sh
+git clone git@github.com:grant/herder.co.git
+npm install
+npm start
+```
+
 ## Notes
 - uber analytics
 - which hours to work
