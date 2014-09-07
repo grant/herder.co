@@ -10,7 +10,7 @@ $(function () {
   var myLatlng = new google.maps.LatLng(37.332017799999996, -121.8899544);
   // map options,
   var myOptions = {
-    zoom: 6,
+    zoom: 9,
     center: myLatlng,
     disableDefaultUI: true
   };
@@ -140,6 +140,47 @@ $(function () {
     var lng = center.lng();
     updateData(lat, lng);
   }, 10000);
+
+  function getZip (lat, lng, cb) {
+    var point = new google.maps.LatLng(lat, lng);
+    new google.maps.Geocoder().geocode({'latLng': point}, function (res, status) {
+      if(status == google.maps.GeocoderStatus.OK && typeof res[0] !== 'undefined') {
+        var zip = res[0].formatted_address.match(/,\s\w{2}\s(\d{5})/);
+        if (zip) {
+          cb(zip[1]);
+        } else {
+          cb();
+        }
+      }
+    });
+  }
+
+  setInterval(function () {
+    var center = map.getCenter();
+    var lat = center.lat();
+    var lng = center.lng();
+    getZip(lat, lng, function (zip) {
+      if (zip) {
+        $.get('/api/gas/'+zip, function (data) {
+          $('.gasArea').show();
+          var stations = data.stations;
+          var bestStation = stations.reduce(function (lastStation, nextStation) {
+            if (lastStation.RegPrice < nextStation.RegPrice) {
+              return lastStation;
+            } else {
+              return nextStation;
+            }
+          });
+
+          $('.gasArea .price').html('$' + bestStation.RegPrice);
+          $('.gasArea .name').html(bestStation.StationName);
+          $('.gasArea .address').html(bestStation.Address);
+        });
+      } else {
+        $('.gasArea').hide();
+      }
+    });
+  }, 3300);
 
   // Try HTML5 geolocation
   if (navigator.geolocation) {

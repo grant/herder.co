@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
 // API
 app.get('/api/gas/:zip', function (req, res) {
   var zip = req.param('zip');
-  require('./api/gas')(zip, function (data) {
+  require('./api/gas').getGas(zip, function (data) {
     res.send(data);
   });
 });

@@ -19,6 +19,23 @@ ul {
   height: 100%;
 }
 
+.gasArea {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  color: rgb(245, 245, 245);
+  z-index: 1000;
+}
+
+.gasArea .price {
+  font-size: 30px;
+}
+.gasArea .address {
+  font-size: 10px;
+}
+
 .mapArea {
   position: relative;
   height: calc(100% - 200px);
@@ -59,6 +76,7 @@ ul {
 }
 
 .dataArea {
+  background-color: rgb(254, 85, 85);
   height: 250px;
 }
 

@@ -10,7 +10,6 @@ var sendMessage = function (driverContact, surge, wait, expectedTrend, callback)
     to: driverContact,
     from: '+16506469710'
   };
-  console.log(details);
   client.messages.create(details, function(err, message) {
     callback(message);
   });
