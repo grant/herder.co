@@ -45,7 +45,7 @@ $(function () {
   var myLatlng = new google.maps.LatLng(37.332017799999996, -121.8899544);
   // map options,
   var myOptions = {
-    zoom: 10,
+    zoom: 3,
     center: myLatlng,
     disableDefaultUI: true
   };
@@ -54,7 +54,7 @@ $(function () {
   // heatmap layer
   heatmap = new HeatmapOverlay(map, {
     // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-    "radius": 0.2,
+    "radius": 2,
     "maxOpacity": 1,
     // scales the radius based on map zoom
     "scaleRadius": true,
