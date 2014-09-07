@@ -5,13 +5,16 @@ block css
 block js
   script(src='https://code.jquery.com/jquery-2.1.1.min.js')
   script(src='js/chart.min.js')
+  script(src='https://maps.googleapis.com/maps/api/js?sensor=false')
+  script(src='js/gmaps.heatmap.js')
+  script(src='js/heatmap.js')
   script(src='js/index.js')
 block content
   .content
     .mapArea
       header.header
         | Herder
-      .map
+      .map#map
     .dataArea
       ul.graphsArea
         li.graphArea
