@@ -19,5 +19,6 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 app.get('*', function (req, res) {
-  res.send('hi');
+  // res.send('hi');
+  res.render('main');
 });
