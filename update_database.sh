@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
-
-curl "https://wwww.herder.com/updatedatabase"
+while true
+do
+	curl "http://www.herder.co/updatedatabase";
+	sleep 900;
+done
